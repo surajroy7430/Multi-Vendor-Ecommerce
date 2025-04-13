@@ -20,43 +20,41 @@ document.addEventListener("DOMContentLoaded", () => {
         let usersDoc = await getDoc(doc(db, "users", user.uid));
         if (usersDoc.exists()) {
             let usersData = usersDoc.data();
-            if(userName) userName.value = usersData.name;
+            if (userName) userName.value = usersData.name;
         }
         else {
-            if(userName) userName.value = "Unknown User";
+            if (userName) userName.value = "Unknown User";
         }
-
-        setupUserDeleteAccount();
 
         loadUserCartItems();
         loadUserOrderItems();
     });
-
 });
 
 function setupUserDeleteAccount() {
     let deleteAccountBtn = document.getElementById("deleteAccountBtn");
 
-    if (!deleteAccountBtn) return;
+    if (deleteAccountBtn) {
+        deleteAccountBtn.addEventListener("click", async () => {
+            if (!confirm("Are you sure you want to delete your account? This action is irreversible.")) return;
 
-    deleteAccountBtn.addEventListener("click", async () => {
-        if (!confirm("Are you sure you want to delete your account? This action is irreversible.")) return;
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    try {
+                        await deleteDoc(doc(db, "users", user.uid));
+                        await deleteUser(user);
 
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                try {
-                    await deleteDoc(doc(db, "users", user.uid));
-                    await deleteUser(user);
-
-                    alert("account deleted successfully!");
-                    window.location.href = "/Auth/signIn.html";
-                } catch (error) {
-                    alert("Failed to delete account. Please re-authenticate and try again.");
+                        alert("account deleted successfully!");
+                        window.location.href = "/Auth/signIn.html";
+                    } catch (error) {
+                        alert("Failed to delete account. Please re-authenticate and try again.");
+                    }
                 }
-            }
+            });
         });
-    });
+    }
 }
+setupUserDeleteAccount();
 
 function loadUserCartItems() {
     onAuthStateChanged(auth, async (user) => {

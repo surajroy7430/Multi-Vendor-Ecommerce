@@ -1,8 +1,8 @@
 import { auth, db } from "../firebase-config.js";
 import { deleteUser, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 import {
-    doc, deleteDoc, getDoc, getDocs, collection, addDoc, 
-    setDoc, query, updateDoc, onSnapshot, where 
+    doc, deleteDoc, getDoc, getDocs, collection, addDoc,
+    setDoc, query, updateDoc, onSnapshot, where
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
 let currentVendorId;
@@ -29,16 +29,15 @@ document.addEventListener("DOMContentLoaded", () => {
             vendorBusinessName = vendorData.businessName;
             vendorAddress = vendorData.address;
 
-            if(businessName) businessName.value = vendorData.businessName;
-            if(businessAddress) businessAddress.value = vendorData.address;
+            if (businessName) businessName.value = vendorData.businessName;
+            if (businessAddress) businessAddress.value = vendorData.address;
         }
         else {
-            if(businessName) businessName.value = "Unknown Vendor";
-            if(businessAddress) businessAddress.value = "Unknown Vendor";
+            if (businessName) businessName.value = "Unknown Vendor";
+            if (businessAddress) businessAddress.value = "Unknown Vendor";
         }
 
-        setupVendorDeleteAccount();
-
+        createNewProduct();
         showVendorProducts();
     });
 });
@@ -46,26 +45,27 @@ document.addEventListener("DOMContentLoaded", () => {
 function setupVendorDeleteAccount() {
     let deleteAccountBtn = document.getElementById("deleteAccountBtn");
 
-    if (!deleteAccountBtn) return;
+    if (deleteAccountBtn) {
+        deleteAccountBtn.addEventListener("click", async () => {
+            if (!confirm("Are you sure you want to delete your account? This action is irreversible.")) return;
 
-    deleteAccountBtn.addEventListener("click", async () => {
-        if (!confirm("Are you sure you want to delete your account? This action is irreversible.")) return;
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    try {
+                        await deleteDoc(doc(db, "vendors", user.uid));
+                        await deleteUser(user);
 
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                try {
-                    await deleteDoc(doc(db, "vendors", user.uid));
-                    await deleteUser(user);
-
-                    alert("account deleted successfully!");
-                    window.location.href = "/Auth/signIn.html";
-                } catch (error) {
-                    alert("Failed to delete account. Please re-authenticate and try again.");
+                        alert("account deleted successfully!");
+                        window.location.href = "/Auth/signIn.html";
+                    } catch (error) {
+                        alert("Failed to delete account. Please re-authenticate and try again.");
+                    }
                 }
-            }
+            });
         });
-    });
+    }
 }
+setupVendorDeleteAccount();
 
 function generateDescription(productName, brand, gender, businessName, address) {
     return `${productName} from ${brand}<br>
@@ -76,52 +76,57 @@ function generateDescription(productName, brand, gender, businessName, address) 
     `;
 }
 
-document.getElementById("add-product-form").addEventListener("submit", async (e) => {
-    e.preventDefault();
+function createNewProduct() {
+    let addProductForm = document.getElementById("add-product-form");
+    if (addProductForm) {
+        addProductForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
 
-    let name = document.getElementById("product-name").value.trim();
-    let displayImage = document.getElementById("product-image").value.trim();
-    let brand = document.getElementById("product-brand").value.trim();
-    let price = parseFloat(document.getElementById("product-price").value);
-    let color = document.getElementById("product-color").value.trim();
-    let sellerTag = document.getElementById("product-tag").value.trim();
-    let gender = document.getElementById("product-gender").value;
-    let ratings = parseFloat(document.getElementById("product-ratings").value);
-    let size = document.getElementById("product-size").value.split(",").map(s => s.trim().toUpperCase());
+            let name = document.getElementById("product-name").value.trim();
+            let displayImage = document.getElementById("product-image").value.trim();
+            let brand = document.getElementById("product-brand").value.trim();
+            let price = parseFloat(document.getElementById("product-price").value);
+            let color = document.getElementById("product-color").value.trim();
+            let sellerTag = document.getElementById("product-tag").value.trim();
+            let gender = document.getElementById("product-gender").value;
+            let ratings = parseFloat(document.getElementById("product-ratings").value);
+            let size = document.getElementById("product-size").value.split(",").map(s => s.trim().toUpperCase());
 
-    let description = generateDescription(name, brand, gender, vendorBusinessName, vendorAddress);
+            let description = generateDescription(name, brand, gender, vendorBusinessName, vendorAddress);
 
-    let productData = {
-        name, displayImage, brand, price, color, sellerName: vendorBusinessName, sellerTag,
-        description, gender, ratings, size, category: "clothes", vendorId: currentVendorId,
-        timestamp
-    };
+            let productData = {
+                name, displayImage, brand, price, color, sellerName: vendorBusinessName, sellerTag,
+                description, gender, ratings, size, category: "clothes", vendorId: currentVendorId,
+                timestamp
+            };
 
 
-    if (formMode === "edit" && editingProductId) {
-        await updateDoc(doc(db, "clothes", editingProductId), productData);
-        await updateDoc(doc(db, "vendors", currentVendorId, "myproducts", editingProductId), productData);
-        alert("Product updated!");
-    } else {
-        let myProductRef = await addDoc(collection(db, "vendors", currentVendorId, "myproducts"), productData);
+            if (formMode === "edit" && editingProductId) {
+                await updateDoc(doc(db, "clothes", editingProductId), productData);
+                await updateDoc(doc(db, "vendors", currentVendorId, "myproducts", editingProductId), productData);
+                alert("Product updated!");
+            } else {
+                let myProductRef = await addDoc(collection(db, "vendors", currentVendorId, "myproducts"), productData);
 
-        // globally adding product
-        await setDoc(doc(db, "clothes", myProductRef.id), {
-            ...productData,
-            productId: myProductRef.id
+                // globally adding product
+                await setDoc(doc(db, "clothes", myProductRef.id), {
+                    ...productData,
+                    productId: myProductRef.id
+                });
+                alert("Product added successfully!");
+            }
+
+            addProductForm.reset();
+            formMode = "add";
+            editingProductId = null;
         });
-        alert("Product added successfully!");
     }
-
-    document.getElementById("add-product-form").reset();
-    formMode = "add";
-    editingProductId = null;
-});
+}
 
 function showVendorProducts() {
     let productsDiv = document.getElementById("added-products");
     let productAddMsg = document.getElementById("productAddMsg");
-    
+
     let clothesRef = collection(db, "clothes");
     let clothesQuery = query(clothesRef, where("vendorId", "==", currentVendorId));
 

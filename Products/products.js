@@ -468,6 +468,12 @@ function openQuickViewModal(product) {
     });
 }
 
-document.getElementById("close-quick-view").addEventListener("click", () => {
-    document.getElementById("quick-view-modal").classList.remove("show");
-});
+function closeQuickView() {
+    let modal = document.getElementById("close-quick-view");
+    if (modal) {
+        modal.addEventListener("click", () => {
+            document.getElementById("quick-view-modal").classList.remove("show");
+        });
+    }
+}
+closeQuickView();
