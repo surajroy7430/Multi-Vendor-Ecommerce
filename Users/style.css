@@ -1,0 +1,136 @@
+.user-container {
+  text-align: left !important;
+  margin: 10px;
+}
+.user-profile {
+  margin: 50px 0;
+}
+.user-profile h3 {
+  display: inline-block;
+  border-bottom: 3px solid #00bcd4;
+  margin-bottom: 15px;
+}
+.input-group {
+  display: flex;
+  flex-direction: column;
+  max-width: 200px;
+  margin-bottom: 20px;
+}
+.input-group label {
+  font-size: 14px;
+  opacity: 0.8;
+}
+.user-profile input:read-only {
+  display: block;
+  pointer-events: none;
+  font-size: 16px;
+  opacity: 0.8;
+  border: 1px solid rgb(182, 181, 181);
+  border-radius: 5px;
+  padding: 7px 5px;
+}
+
+/* Cart / Orders */
+div#cartContainer,
+div#orderContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 350px));
+  justify-content: center;
+  gap: 20px;
+}
+.cart-items,
+.order-items {
+  border: 1px solid rgb(240, 236, 236);
+  cursor: pointer;
+}
+.cart-items img,
+.order-items img {
+  object-fit: fill;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 3/3;
+}
+.cart-item-content,
+.order-item-content {
+  padding: 10px;
+  text-align: left;
+}
+.card-sellerName {
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.card-title,
+.order-title,
+.card-orderDate {
+  font-size: 16px;
+  color: #636262;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.card-price {
+  font-size: 20px;
+  font-weight: 600;
+}
+.order-price {
+  font-size: 16px;
+}
+.order-price span {
+  font-size: 20px;
+  font-weight: 600;
+}
+.card-quantity {
+  font-size: 16px;
+}
+.cart-item-image {
+  position: relative;
+}
+.card-sellerTag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 2px 5px;
+  background-color: #00bcd4;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.card-orderStatus {
+  position: absolute;
+  bottom: 0;
+  left: 5px;
+  padding: 3px 7px;
+  background-color: #d5eb0f;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.card-rating {
+  position: absolute;
+  bottom: 5px;
+  left: 10px;
+  padding: 4px 8px;
+  border-radius: 20px;
+  background-color: #fff;
+  font-size: 13px;
+}
+.bi-star-fill {
+  color: rgb(221, 221, 15);
+}
+.empty-cart p,
+.no-orders p {
+  font-size: 24px;
+  margin: 20px;
+}
+.empty-cart a,
+.no-orders a {
+  background-color: #00bcd4;
+  color: #fff;
+  padding: 7px 13px;
+  border-radius: 6px;
+}

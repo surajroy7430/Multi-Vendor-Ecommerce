@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>My Products</title>
+</head>
+
+<body data-gender="all">
+    <div id="loader" class="spinner"></div>
+
+    <div id="site-header"></div>
+
+    <main id="main-content" style="display: none;">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/index.html">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Products</li>
+                </ol>
+            </nav>
+
+            <form id="add-product-form">
+                <input type="text" id="product-name" placeholder="Product Name" autocomplete="off" required />
+                <input type="text" id="product-image" placeholder="Image URL" autocomplete="off" required />
+                <input type="text" id="product-brand" placeholder="Brand" required />
+                <input type="number" id="product-price" placeholder="Price" required />
+                <input type="text" id="product-color" placeholder="Color" required />
+                <input type="text" id="product-tag" placeholder="Seller Tagline" required />
+                <select id="product-gender" required>
+                    <option value="Men">Men</option>
+                    <option value="Women">Women</option>
+                </select>
+                <input type="number" step="0.1" id="product-ratings" placeholder="Ratings" required />
+                <input type="text" id="product-size" placeholder="Sizes (comma separated)" required />
+                <button type="submit">Add Product</button>
+            </form>
+
+            <div class="vendor-products-show">
+                <h4>My Products</h4>
+
+                <div id="added-products"></div>
+
+                <p id="productAddMsg"></p>
+            </div>
+        </div>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script type="module" src="app.js"></script>
+    <script type="module" src="../HeaderFooter/headerFooterLoader.js"></script>
+</body>
+
+</html>

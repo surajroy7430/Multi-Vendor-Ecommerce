@@ -1,0 +1,136 @@
+.auth-container {
+  margin: 100px auto;
+  text-align: center;
+  max-width: 450px;
+}
+.auth-container form {
+  margin: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.7);
+}
+form h4 {
+  font-weight: 600;
+}
+form .h4-helper {
+  font-size: 14px;
+}
+.signInEmail,
+.signInPassword,
+.registerName,
+.registerEmail,
+.registerPassword,
+.registerAddress {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+.auth-container form input {
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid;
+  outline: none;
+  font-size: 16px;
+  border: none;
+  background-color: #eaf6f8;
+}
+.auth-container form input::placeholder {
+  color: #b1b0b0;
+}
+.auth-container form input:focus {
+  outline: 1px solid gray;
+  background-color: #f2f7f8;
+}
+.auth-container form label {
+  font-size: 15px;
+  color: #4d4d4d;
+  font-weight: 600;
+}
+.auth-container form label span {
+  color: red;
+}
+.auth-container form button {
+  background-color: #67e4f5;
+  padding: 6px 18px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  color: #222;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.auth-container form button:hover {
+  background-color: #2ecce0;
+}
+.accountExists p {
+  color: #7a7878;
+}
+.accountExists a {
+  color: #2ecce0;
+}
+.accountExists a:hover {
+  text-decoration: underline;
+  color: #19a5b8;
+}
+#authMsg,
+#vendorMsg,
+#userMsg {
+  margin-bottom: 0;
+}
+
+.popup {
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  overflow: auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: visibility 0s linear 0.2s, opacity 0.3s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.popup.show {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
+}
+.popup-content {
+  position: relative;
+  background-color: #fff;
+  padding: 30px 50px;
+  border-radius: 5px;
+  text-align: center;
+  transform: scale(0.7);
+  transition: transform 0.2s ease-in-out;
+}
+.popup.show .popup-content {
+  transform: scale(1);
+}
+.popup-content h4 {
+  font-weight: 600;
+  font-size: 20px;
+}
+.popup-content button {
+  padding: 7px 14px;
+  border: none;
+  margin: 5px;
+  border-radius: 6px;
+  background-color: #a0e3ec;
+  color: #333;
+}
+#closePopup {
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  font-size: 25px;
+  cursor: pointer;
+  z-index: 1;
+}

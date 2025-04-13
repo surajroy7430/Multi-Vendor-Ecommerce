@@ -1,0 +1,33 @@
+.carousel, .carousel-item img {
+  width: 100%;
+  height: 450px;
+  padding: 0 70px;
+}
+.weekly-design {
+  margin: 20px 0;
+}
+.weekly-design .design-image {
+  display: flex;
+}
+.design-image img {
+  width: 50%;
+}
+.home-img-last {
+  width: 100%;
+}
+.shop-for-mens, .shop-for-womens {
+  margin: 20px 0;
+}
+.home-card-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 250px));
+  justify-content: center;
+  gap: 5px;
+}
+
+@media (max-width: 768px) {
+  .carousel, .carousel-item img {
+    height: 250px;
+    padding: 0;
+  }
+}

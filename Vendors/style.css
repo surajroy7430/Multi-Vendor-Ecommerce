@@ -1,0 +1,132 @@
+.vendor-container {
+  text-align: left !important;
+  margin: 10px;
+}
+
+.vendor-profile {
+  margin: 50px 0;
+}
+.vendor-profile h3 {
+  display: inline-block;
+  border-bottom: 3px solid #00bcd4;
+  margin-bottom: 15px;
+}
+.input-group {
+  display: flex;
+  flex-direction: column;
+  max-width: 200px;
+  margin-bottom: 20px;
+}
+.input-group label {
+  font-size: 14px;
+  opacity: 0.8;
+}
+.vendor-profile input:read-only {
+  display: block;
+  pointer-events: none;
+  font-size: 16px;
+  opacity: 0.8;
+  border: 1px solid rgb(182, 181, 181);
+  border-radius: 5px;
+  padding: 7px 5px;
+}
+
+/* Product Form */
+form#add-product-form {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 450px;
+  margin: 0 auto 40px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+form#add-product-form input,
+form#add-product-form textarea,
+form#add-product-form select,
+form#add-product-form button {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+form#add-product-form button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+form#add-product-form button:hover {
+  background-color: #45a049;
+}
+
+/* Product Cards Section */
+div#added-products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 350px));
+  justify-content: center;
+  gap: 20px;
+}
+.vendor-product-card {
+  border: 1px solid rgb(240, 236, 236);
+}
+.card-item-image img {
+  object-fit: fill;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 3/3;
+}
+.card-item-content {
+  padding: 10px;
+  text-align: left;
+}
+.card-sellerName {
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.card-title, .card-creation {
+  font-size: 16px;
+  color: #636262;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.card-price {
+  font-size: 20px;
+  font-weight: 600;
+}
+.card-item-image {
+  position: relative;
+}
+.card-sellerTag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 2px 5px;
+  background-color: #00bcd4;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.card-rating {
+  position: absolute;
+  bottom: 5px;
+  left: 10px;
+  padding: 4px 8px;
+  border-radius: 20px;
+  background-color: #fff;
+  font-size: 13px;
+}
+.bi-star-fill {
+  color: rgb(221, 221, 15);
+}

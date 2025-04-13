@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <header>
+        <div class="mobile-header">
+            <div>
+                <button class="hamburger" id="hamburger">&#9776;</button>
+                <a href="/index.html">
+                    <img src="https://i.ibb.co/27VZ8S5j/logo-1-small.png" alt="drobe-logo">
+                </a>
+            </div>
+            <input type="search" id="search-input" placeholder="Search by products" autocomplete="off">
+            <a href="#" class="cart-icon"><i class="bi bi-bag"></i></a>
+        </div>
+    
+        <div id="overlay"></div>
+        <div id="mobile-menu" class="mobile-menu">
+            <button id="close-menu" class="menu-close-btn">&times;</button>
+            <a href="/Auth/signIn.html" class="menu-loginbtn">Sign In</a>
+            <div class="shop-menu">
+                <p>SHOP HERE</p>
+                <a href="/Products/mens.html">Men</a>
+                <a href="/Products/womens.html">Women</a>
+            </div>
+            <div class="profile-menu"></div>
+        </div>
+    
+        <div class="desktop-header">
+            <a href="/index.html">
+                <img src="https://i.ibb.co/LX9vPjQh/logo-1.png" alt="drobe-logo">
+            </a>
+            <nav class="product-tabs">
+                <a href="/Products/mens.html" id="men-tab">Men</a>
+                <a href="/Products/womens.html" id="women-tab">Women</a>
+            </nav>
+    
+            <div class="searchAndAuth">
+                <input type="search" id="search-input" placeholder="Search by products" autocomplete="off">
+    
+                <nav class="navbar">
+                    <div class="vr"></div>
+                    <a href="/Auth/signIn.html">Login</a>
+                    <a href="/Auth/signIn.html" class="cart-icon"><i class="bi bi-bag"></i></a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <script type="module" src="headerFooterLoader.js"></script>
+</body>
+</html>
