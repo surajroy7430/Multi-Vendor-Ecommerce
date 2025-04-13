@@ -309,12 +309,14 @@ async function handleProductSearch(searchQuery, gender) {
     if (gender === "all") {
         q = query(
             collection(db, "clothes"),
+            orderBy("timestamp", "desc"),
             limit(pageSize)
         );
     }
     else {
         q = query(
             collection(db, "clothes"),
+            orderBy("timestamp", "desc"),
             where("gender", "==", gender),
             limit(pageSize)
         );
@@ -322,11 +324,12 @@ async function handleProductSearch(searchQuery, gender) {
     let snapshot = await getDocs(q);
 
     snapshot.forEach(doc => {
-        let data = doc.data();
-        let matchedName = data.name.trim().toLowerCase().includes(searchQuery);
-        let matchedSeller = data.sellerName.trim().toLowerCase().includes(searchQuery);
+        let product = doc.data();
+        product.timestamp = product.timestamp?.toDate?.() || new Date(0);
+        let matchedName = product.name.trim().toLowerCase().includes(searchQuery);
+        let matchedSeller = product.sellerName.trim().toLowerCase().includes(searchQuery);
         if (matchedName || matchedSeller) {
-            searchResults.push({ id: doc.id, ...data });
+            searchResults.push({ id: doc.id, ...product });
         }
     });
 
