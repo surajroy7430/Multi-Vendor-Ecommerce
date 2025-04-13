@@ -4,6 +4,7 @@ import {
     doc, deleteDoc, getDoc, getDocs, collection, addDoc,
     setDoc, query, updateDoc, onSnapshot, where
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+import { showToast } from "../script.js";
 
 let currentVendorId;
 let vendorBusinessName = "";
@@ -55,10 +56,10 @@ function setupVendorDeleteAccount() {
                         await deleteDoc(doc(db, "vendors", user.uid));
                         await deleteUser(user);
 
-                        alert("account deleted successfully!");
+                        showToast("account deleted successfully!");
                         window.location.href = "/Auth/signIn.html";
                     } catch (error) {
-                        alert("Failed to delete account. Please re-authenticate and try again.");
+                        showToast("Failed to delete account. Please re-authenticate and try again.", true);
                     }
                 }
             });
@@ -104,7 +105,7 @@ function createNewProduct() {
             if (formMode === "edit" && editingProductId) {
                 await updateDoc(doc(db, "clothes", editingProductId), productData);
                 await updateDoc(doc(db, "vendors", currentVendorId, "myproducts", editingProductId), productData);
-                alert("Product updated!");
+                showToast("Product updated!");
             } else {
                 let myProductRef = await addDoc(collection(db, "vendors", currentVendorId, "myproducts"), productData);
 
@@ -113,7 +114,7 @@ function createNewProduct() {
                     ...productData,
                     productId: myProductRef.id
                 });
-                alert("Product added successfully!");
+                showToast("Product added successfully!");
             }
 
             addProductForm.reset();
@@ -190,13 +191,13 @@ window.deleteProduct = async function (productId) {
         deleteDoc(doc(db, "vendors", currentVendorId, "myproducts", docSnap.id));
     });
 
-    alert("Product deleted successfully!");
+    showToast("Product deleted successfully!");
     showVendorProducts();
 };
 
 window.editProduct = async function (productId) {
     let productDoc = await getDoc(doc(db, "clothes", productId));
-    if (!productDoc.exists()) return alert("Product not found!");
+    if (!productDoc.exists()) return showToast("Product not found!", true);
 
     let data = productDoc.data();
 

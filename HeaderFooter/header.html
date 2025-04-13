@@ -1,10 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
+    <div id="toastContainer" class="position-fixed top-0 start-0 p-3" style="z-index: 99999;">
+        <div id="toastMsg" class="toast align-items-center text-white bg-success border-0 shadow" role="alert"
+            aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body" id="toastBody">
+                    <!-- Dynamic message -->
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
     <header>
         <div class="mobile-header">
             <div>
@@ -16,7 +31,7 @@
             <input type="search" id="search-input" placeholder="Search by products" autocomplete="off">
             <a href="#" class="cart-icon"><i class="bi bi-bag"></i></a>
         </div>
-    
+
         <div id="overlay"></div>
         <div id="mobile-menu" class="mobile-menu">
             <button id="close-menu" class="menu-close-btn">&times;</button>
@@ -28,7 +43,7 @@
             </div>
             <div class="profile-menu"></div>
         </div>
-    
+
         <div class="desktop-header">
             <a href="/index.html">
                 <img src="https://i.ibb.co/LX9vPjQh/logo-1.png" alt="drobe-logo">
@@ -37,10 +52,10 @@
                 <a href="/Products/mens.html" id="men-tab">Men</a>
                 <a href="/Products/womens.html" id="women-tab">Women</a>
             </nav>
-    
+
             <div class="searchAndAuth">
                 <input type="search" id="search-input" placeholder="Search by products" autocomplete="off">
-    
+
                 <nav class="navbar">
                     <div class="vr"></div>
                     <a href="/Auth/signIn.html">Login</a>
@@ -52,4 +67,5 @@
 
     <script type="module" src="headerFooterLoader.js"></script>
 </body>
+
 </html>

@@ -3,6 +3,7 @@ import { deleteUser, onAuthStateChanged } from "https://www.gstatic.com/firebase
 import {
     addDoc, doc, deleteDoc, collection, getDoc, getDocs, onSnapshot, writeBatch,
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+import { showToast } from "../script.js";
 
 let cartProducts = [];
 let orderedProducts = [];
@@ -44,10 +45,10 @@ function setupUserDeleteAccount() {
                         await deleteDoc(doc(db, "users", user.uid));
                         await deleteUser(user);
 
-                        alert("account deleted successfully!");
+                        showToast("account deleted successfully!");
                         window.location.href = "/Auth/signIn.html";
                     } catch (error) {
-                        alert("Failed to delete account. Please re-authenticate and try again.");
+                        showToast("Failed to delete account. Please re-authenticate and try again.", true);
                     }
                 }
             });
@@ -61,6 +62,9 @@ function loadUserCartItems() {
         if (!user) return;
 
         let cartContainer = document.getElementById("cartContainer");
+
+        let orderNowBtn = document.getElementById("orderNowBtn")
+        if(orderNowBtn) orderNowBtn.remove()
 
         try {
             let cartSnapshot = await getDocs(collection(db, "users", user.uid, "cart"));
@@ -116,6 +120,7 @@ function loadUserCartItems() {
             });
 
             let orderBtn = document.createElement("button");
+            orderBtn.id = "orderNowBtn"
             orderBtn.className = "btn btn-primary mt-4";
             orderBtn.textContent = "Order Now";
             orderBtn.onclick = () => orderAllProducts(cartProducts, user.uid);
@@ -139,7 +144,7 @@ window.removeFromCart = async function (productId) {
 
             loadUserCartItems();
         } catch (error) {
-            alert("Error removing item. Please try again.");
+            showToast("Error removing item. Please try again.", true);
         }
     });
 }
@@ -182,7 +187,7 @@ window.orderSingleProduct = async function (productId) {
         let productSnap = await getDoc(productRef);
 
         if (!productSnap.exists()) {
-            alert("Product not found in the cart.");
+            showToast("Product not found in the cart.", true);
             return;
         }
 
@@ -194,10 +199,10 @@ window.orderSingleProduct = async function (productId) {
         });
         await deleteDoc(productRef);
 
-        alert("Product Ordered Successfully!");
+        showToast("Product Ordered Successfully!");
         window.location.href = "/Users/My-Orders.html";
     } catch (error) {
-        console.log("error ordering product", error.message);
+        showToast("error ordering product", true);
     }
 }
 window.orderAllProducts = async function (products, uid) {
@@ -219,10 +224,10 @@ window.orderAllProducts = async function (products, uid) {
 
         await batch.commit();
 
-        alert("Product Ordered Successfully!");
+        showToast("Product Ordered Successfully!");
         window.location.href = "/Users/My-Orders.html";
     } catch (error) {
-        console.log("error ordering product", error);
+        showToast("error ordering product", true);
     }
 }
 
@@ -297,7 +302,7 @@ window.cancelOrder = async function (productId) {
 
             loadUserOrderItems();
         } catch (error) {
-            alert("Error canceling order. Please try again.");
+            showToast("Error canceling order. Please try again.", true);
         }
     });
 }

@@ -4,6 +4,7 @@ import {
     doc, getDoc, getDocs, collection, query, where, limit,
     startAfter, setDoc, updateDoc, orderBy
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+import { showToast } from "../script.js";
 
 let pageSize = 100;
 let productData = [];
@@ -459,9 +460,9 @@ function openQuickViewModal(product) {
                         await setDoc(cartRef, { ...product, quantity: 1 });
                     }
 
-                    alert("product added to cart");
+                    showToast("product added to cart");
                 } catch (error) {
-                    console.log("add cart error:", error.message);
+                    showToast("add cart error:", error.message, true);
                 }
             });
         }

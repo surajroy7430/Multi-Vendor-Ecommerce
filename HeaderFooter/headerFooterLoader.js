@@ -8,6 +8,7 @@ async function loadHeaderFooter() {
     try {
         const headerContainer = document.getElementById("site-header");
         const footerContainer = document.getElementById("site-footer");
+        const toastContainer = document.getElementById("toastContainer");
 
         // Load header
         const headerRes = await fetch(`${basePath}HeaderFooter/header.html`);
@@ -24,6 +25,13 @@ async function loadHeaderFooter() {
         if (footerContainer) {
             footerContainer.innerHTML = footerHTML;
             setCurrentYear();
+        }
+
+        // Load toast
+        const toast = await fetch(`${basePath}HeaderFooter/footer.html`);
+        const toastHtml = await toast.text();
+        if (toastContainer) {
+            toastContainer.innerHTML = toastHtml;
         }
 
     } catch (err) {
