@@ -89,11 +89,11 @@ async function registerUser(event) {
 
         await setDoc(doc(db, "users", user.uid), { email, role, name });
 
-        msg.textContent = "Registration Successful! Please log in.";
+        msg.textContent = "Registration Successful.";
         msg.style.color = "green";
 
         setTimeout(() => {
-            window.location.href = "/Auth/signIn.html";
+            window.location.href = "/Users/Dashboard.html";
         }, 2000);
     } catch (error) {
         msg.textContent = error.message;
@@ -117,11 +117,11 @@ async function registerVendor(event) {
 
         await setDoc(doc(db, "vendors", vendor.uid), { email, role, businessName, address });
 
-        msg.textContent = "Registration Successful! Please log in.";
+        msg.textContent = "Registration Successful.";
         msg.style.color = "green";
 
         setTimeout(() => {
-            window.location.href = "/Auth/signIn.html";
+            window.location.href = "/Vendors/Dashboard.html";
         }, 2000);
     } catch (error) {
         msg.textContent = error.message;
