@@ -62,9 +62,10 @@ function loadUserCartItems() {
         if (!user) return;
 
         let cartContainer = document.getElementById("cartContainer");
+        let cartAllItems = document.querySelector(".cart-all-items");
 
         let orderNowBtn = document.getElementById("orderNowBtn")
-        if(orderNowBtn) orderNowBtn.remove()
+        if (orderNowBtn) orderNowBtn.remove()
 
         try {
             let cartSnapshot = await getDocs(collection(db, "users", user.uid, "cart"));
@@ -119,14 +120,14 @@ function loadUserCartItems() {
                 cartContainer.appendChild(div);
             });
 
-            let orderBtn = document.createElement("button");
-            orderBtn.id = "orderNowBtn"
-            orderBtn.className = "btn btn-primary mt-4";
-            orderBtn.textContent = "Order Now";
-            orderBtn.onclick = () => orderAllProducts(cartProducts, user.uid);
-
-            let cartAllItems = document.querySelector(".cart-all-items");
-            cartAllItems.appendChild(orderBtn);
+            if (!document.getElementById("orderNowBtn")) {
+                let orderBtn = document.createElement("button");
+                orderBtn.id = "orderNowBtn"
+                orderBtn.className = "btn btn-primary mt-4";
+                orderBtn.textContent = "Order Now";
+                orderBtn.onclick = () => orderAllProducts(cartProducts, user.uid);
+                cartAllItems.appendChild(orderBtn);
+            }
         } catch (error) {
             return;
         }
@@ -300,6 +301,7 @@ window.cancelOrder = async function (productId) {
 
             orderedProducts = orderedProducts.filter(p => p.id === productId);
 
+            showToast("Order canceled.");
             loadUserOrderItems();
         } catch (error) {
             showToast("Error canceling order. Please try again.", true);
