@@ -6,7 +6,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 import { showToast } from "../script.js";
 
-let pageSize = 100;
+let pageSize = 50;
 let productData = [];
 let allVendors = [];
 let lastVisible = null;
@@ -161,7 +161,7 @@ async function getProductsFirstPage(gender) {
     productData.length = 0;
     snapshot.forEach((doc) => {
         let product = doc.data();
-        product.timestamp = product.timestamp?.toDate?.() || new Date(0);
+        product.timestamp = product.timestamp.toDate();
         productData.push({ id: doc.id, ...product });
 
         if (product.sellerName) {
@@ -212,7 +212,7 @@ async function getProductsNextPage(gender) {
 
         snapshot.forEach((doc) => {
             let product = doc.data();
-            product.timestamp = product.timestamp?.toDate?.() || new Date(0);
+            product.timestamp = product.timestamp.toDate();
             productData.push({ id: doc.id, ...product });
 
             if (product.sellerName) {
