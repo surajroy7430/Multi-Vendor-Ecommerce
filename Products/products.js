@@ -161,7 +161,7 @@ async function getProductsFirstPage(gender) {
     productData.length = 0;
     snapshot.forEach((doc) => {
         let product = doc.data();
-        product.timestamp = product.timestamp.toDate();
+        product.timestamp = product.timestamp?.toDate?.() || Date.now(0);
         productData.push({ id: doc.id, ...product });
 
         if (product.sellerName) {
@@ -212,7 +212,7 @@ async function getProductsNextPage(gender) {
 
         snapshot.forEach((doc) => {
             let product = doc.data();
-            product.timestamp = product.timestamp.toDate();
+            product.timestamp = product.timestamp?.toDate?.() || Date.now(0);
             productData.push({ id: doc.id, ...product });
 
             if (product.sellerName) {
