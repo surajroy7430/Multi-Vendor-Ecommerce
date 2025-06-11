@@ -1,75 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
-        crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="auth.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="auth.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="shortcut icon"
+      href="https://i.ibb.co/PGbMMq5N/favIconn.png"
+      type="image/x-icon"
+    />
     <title>Sign In</title>
-</head>
+  </head>
 
-<body data-gender="all">
-    <div id="loader" class="spinner"></div>
+  <body data-gender="all" class="bg-gray-100">
+    <div id="loader">
+      <div class="loader-content">
+        <div class="spinner"></div>
+      </div>
+    </div>
 
     <div id="site-header"></div>
 
-    <main class="auth-page" id="main-content" style="display: none;">
-        <div class="auth-container">
-            <form id="signIn-form">
-                <h4>Sign In</h4>
-                <hr>
-                <div class="signInEmail">
-                    <label for="signIn-email">Email<span>*</span></label>
-                    <input 
-                        type="email" 
-                        id="signIn-email" 
-                        placeholder="enter your email..." 
-                        autocomplete="off"
-                        required
-                    >
-                </div>
-                <div class="signInPassword">
-                    <label for="signIn-password">Password<span>*</span></label>
-                    <input 
-                        type="password" 
-                        id="signIn-password" 
-                        placeholder="enter your password..." 
-                        autocomplete="off"
-                        required
-                    >
-                </div>
+    <main class="auth-page" id="main-content" style="display: none">
+      <div class="auth-container">
+        <form id="signIn-form" class="p-4 m-3 rounded-lg">
+          <h2 class="text-center text-3xl font-extrabold">Welcome</h2>
+          <p class="mt-4 text-center text-gray-400">Sign in to continue</p>
 
-                <button type="submit">Sign In</button>
-
-                <div class="accountExists">
-                    <p>Don't have an account? <a href="#" id="showRolePopup">Sign Up</a></p>
-                </div>
-    
-                <p id="authMsg"></p>
-            </form>
-
-            <!-- Role Popup Selection -->
-            <div id="role-popup" class="popup">
-                <div class="popup-content">
-                    <h4>Select Your Role</h4>
-                    <button onclick="redirectToRegister('user')">User</button>
-                    <button onclick="redirectToRegister('vendor')">Vendor</button>
-                    <span id="closePopup">&times;</span>
-                </div>
+          <div class="mt-8 space-y-3">
+            <div>
+              <label for="signIn-email" class="sr-only">Email Address</label>
+              <div
+                class="flex items-center border border-gray-800 bg-gray-200 rounded-md h-[60px] pl-4 focus-within:ring-1 focus-within:ring-sky-500"
+              >
+                <i class="bi bi-envelope-at text-lg"></i>
+                <input
+                  type="email"
+                  id="signIn-email"
+                  placeholder="Email Address"
+                  autocomplete="off"
+                  required
+                  class="w-full h-full bg-gray-200 rounded-md ml-1 px-2"
+                />
+              </div>
             </div>
+            <div class="mt-3">
+              <label for="signIn-password" class="sr-only">Password</label>
+              <div
+                class="flex items-center border border-gray-800 bg-gray-200 rounded-md h-[60px] pl-4 focus-within:ring-1 focus-within:ring-sky-500"
+              >
+                <i class="bi bi-lock text-lg"></i>
+                <input
+                  type="password"
+                  id="signIn-password"
+                  placeholder="Password"
+                  autocomplete="off"
+                  required
+                  class="w-full h-full bg-gray-200 rounded-md ml-1 px-2"
+                />
+                <button
+                  type="button"
+                  id="toggle-password"
+                  class="pr-4 bg-transparent focus:outline-none"
+                >
+                  <i class="bi bi-eye-fill text-lg hidden" id="show-pass"></i>
+                  <i class="bi bi-eye-slash-fill text-lg" id="hide-pass"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between mt-4">
+              <div class="flex items-center">
+                <input
+                  class="h-4 w-4"
+                  type="checkbox"
+                  name="remember-me"
+                  id="remember-me"
+                  required
+                />
+                <label
+                  class="ml-2 block text-sm text-gray-400"
+                  for="remember-me"
+                >
+                  Remember me
+                </label>
+              </div>
+              <div class="text-sm">
+                <a
+                  class="font-medium text-indigo-500 hover:text-indigo-400"
+                  href="#"
+                >
+                  Forgot your password?
+                </a>
+              </div>
+            </div>
+
+            <div>
+              <button
+                class="group relative w-full flex justify-center py-3 px-4 border border-transparent font-semibold rounded-md text-white bg-sky-500 hover:bg-sky-600 focus:outline-none"
+                type="submit"
+              >
+                Sign In
+              </button>
+            </div>
+
+            <p id="authMsg" class="m-2 text-center text-red"></p>
+          </div>
+
+          <div class="text-center mt-4">
+            <p class="text-gray-400">
+              Don't have an account?
+              <a
+                href="#"
+                id="showRolePopup"
+                class="font-semibold text-sky-500 hover:text-sky-600"
+                >Sign Up</a
+              >
+            </p>
+          </div>
+
+          <p class="text-center text-slate-500 py-2">Or With</p>
+
+          <div class="flex gap-2">
+            <button
+              type="button"
+              id="googleSignInUser"
+              class="w-full flex items-center justify-center gap-2 bg-white border border-gray-200 py-3 px-3 rounded-md font-semibold"
+            >
+              <svg
+                version="1.1"
+                width="20"
+                id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 512 512"
+                style="enable-background: new 0 0 512 512"
+                xml:space="preserve"
+              >
+                <path
+                  style="fill: #fbbb00"
+                  d="M113.47,309.408L95.648,375.94l-65.139,1.378C11.042,341.211,0,299.9,0,256
+	c0-42.451,10.324-82.483,28.624-117.732h0.014l57.992,10.632l25.404,57.644c-5.317,15.501-8.215,32.141-8.215,49.456
+	C103.821,274.792,107.225,292.797,113.47,309.408z"
+                ></path>
+                <path
+                  style="fill: #518ef8"
+                  d="M507.527,208.176C510.467,223.662,512,239.655,512,256c0,18.328-1.927,36.206-5.598,53.451
+	c-12.462,58.683-45.025,109.925-90.134,146.187l-0.014-0.014l-73.044-3.727l-10.338-64.535
+	c29.932-17.554,53.324-45.025,65.646-77.911h-136.89V208.176h138.887L507.527,208.176L507.527,208.176z"
+                ></path>
+                <path
+                  style="fill: #28b446"
+                  d="M416.253,455.624l0.014,0.014C372.396,490.901,316.666,512,256,512
+	c-97.491,0-182.252-54.491-225.491-134.681l82.961-67.91c21.619,57.698,77.278,98.771,142.53,98.771
+	c28.047,0,54.323-7.582,76.87-20.818L416.253,455.624z"
+                ></path>
+                <path
+                  style="fill: #f14336"
+                  d="M419.404,58.936l-82.933,67.896c-23.335-14.586-50.919-23.012-80.471-23.012
+	c-66.729,0-123.429,42.957-143.965,102.724l-83.397-68.276h-0.014C71.23,56.123,157.06,0,256,0
+	C318.115,0,375.068,22.126,419.404,58.936z"
+                ></path>
+              </svg>
+              <span class="text-sm">User</span>
+            </button>
+
+            <button
+              type="button"
+              id="googleSignInVendor"
+              class="w-full flex items-center justify-center gap-2 bg-white border border-gray-200 py-3 px-3 rounded-md font-semibold"
+            >
+              <svg
+                version="1.1"
+                width="20"
+                id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 512 512"
+                style="enable-background: new 0 0 512 512"
+                xml:space="preserve"
+              >
+                <path
+                  style="fill: #fbbb00"
+                  d="M113.47,309.408L95.648,375.94l-65.139,1.378C11.042,341.211,0,299.9,0,256
+	c0-42.451,10.324-82.483,28.624-117.732h0.014l57.992,10.632l25.404,57.644c-5.317,15.501-8.215,32.141-8.215,49.456
+	C103.821,274.792,107.225,292.797,113.47,309.408z"
+                ></path>
+                <path
+                  style="fill: #518ef8"
+                  d="M507.527,208.176C510.467,223.662,512,239.655,512,256c0,18.328-1.927,36.206-5.598,53.451
+	c-12.462,58.683-45.025,109.925-90.134,146.187l-0.014-0.014l-73.044-3.727l-10.338-64.535
+	c29.932-17.554,53.324-45.025,65.646-77.911h-136.89V208.176h138.887L507.527,208.176L507.527,208.176z"
+                ></path>
+                <path
+                  style="fill: #28b446"
+                  d="M416.253,455.624l0.014,0.014C372.396,490.901,316.666,512,256,512
+	c-97.491,0-182.252-54.491-225.491-134.681l82.961-67.91c21.619,57.698,77.278,98.771,142.53,98.771
+	c28.047,0,54.323-7.582,76.87-20.818L416.253,455.624z"
+                ></path>
+                <path
+                  style="fill: #f14336"
+                  d="M419.404,58.936l-82.933,67.896c-23.335-14.586-50.919-23.012-80.471-23.012
+	c-66.729,0-123.429,42.957-143.965,102.724l-83.397-68.276h-0.014C71.23,56.123,157.06,0,256,0
+	C318.115,0,375.068,22.126,419.404,58.936z"
+                ></path>
+              </svg>
+              <span class="text-sm">Vendor</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Role Popup Selection -->
+        <div id="role-popup" class="popup">
+          <div class="popup-content relative bg-white p-4 m-[100px] rounded-md">
+            <h4 class="mb-3 text-2xl font-extrabold">Who are you?</h4>
+
+            <div class="popup-roles">
+              <div class="user-role">
+                <img src="/Assets/ECommerce-User.png" alt="user_image" />
+                <button onclick="redirectToRegister('user')">User</button>
+              </div>
+              <div class="vendor-role">
+                <img src="/Assets/ECommerce-Vendor.jpg" alt="vendor_image" />
+                <button onclick="redirectToRegister('vendor')">Vendor</button>
+              </div>
+            </div>
+
+            <span
+              id="closePopup"
+              class="absolute top-3 right-5 z-10 text-3xl cursor-pointer"
+              >&times;</span
+            >
+          </div>
         </div>
+      </div>
     </main>
 
     <div id="site-footer"></div>
 
     <script type="module" src="auth.js"></script>
     <script type="module" src="../HeaderFooter/headerFooterLoader.js"></script>
-</body>
-
+  </body>
 </html>

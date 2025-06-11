@@ -2,120 +2,183 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
-        crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="shortcut icon"
+      href="https://i.ibb.co/PGbMMq5N/favIconn.png"
+      type="image/x-icon"
+    />
     <title>E-commerce Platform - Drobe</title>
-</head>
+  </head>
 
-<body data-gender="all">
-    <div id="loader" class="spinner"></div>
+  <body data-gender="all">
+    <div id="loader">
+      <div class="loader-content">
+        <div class="spinner"></div>
+      </div>
+    </div>
 
     <div id="site-header"></div>
 
-    <main id="main-content" style="display: none;">
-        <div class="container">
-            <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="https://images.bewakoof.com/uploads/grid/app/1x1-static-naruto-Graphic-1-1697689879.jpg"
-                            class="d-block w-100" alt="slide-1">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://images.bewakoof.com/uploads/grid/app/1x1-static-resort-01--1--1697112502.jpg"
-                            class="d-block w-100" alt="slide-2">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://images.bewakoof.com/uploads/grid/app/desktop-mid-size-hygiene-revamp-parachute--1--1697523796.jpg"
-                            class="d-block w-100" alt="slide-3">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://images.bewakoof.com/uploads/grid/app/Trendy-Tshirt-at-flat-399-desktop-mid-size-banner--1--1696841594.jpg"
-                            class="d-block w-100" alt="slide-4">
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
+    <main id="main-content" style="display: none">
+      <div class="container">
+        <div
+          id="carouselExampleAutoplaying"
+          class="carousel slide"
+          data-bs-ride="carousel"
+        >
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img
+                src="https://images.bewakoof.com/uploads/grid/app/1x1-static-naruto-Graphic-1-1697689879.jpg"
+                class="d-block w-100"
+                alt="slide-1"
+              />
             </div>
-
-            <div class="weekly-design">
-                <h4>Design of the Week</h4>
-                <div class="design-image">
-                    <img src="https://images.bewakoof.com/uploads/grid/app/Revised-DOTW-Split-banner-Desktop-Menn--2--1697963845.jpg"
-                        alt="left-image">
-                    <img src="https://images.bewakoof.com/uploads/grid/app/Revised-DOTW-Split-banner-Desktop-Women--1--1697963845.jpg"
-                        alt="right-image">
-                </div>
+            <div class="carousel-item">
+              <img
+                src="https://images.bewakoof.com/uploads/grid/app/1x1-static-resort-01--1--1697112502.jpg"
+                class="d-block w-100"
+                alt="slide-2"
+              />
             </div>
-
-            <div class="shop-for-mens">
-                <h4>Shop by category - Men</h4>
-                <div class="home-card-group">
-                    <div class="home-card">
-                        <img src="https://images.bewakoof.com/uploads/grid/app/category-box-new-D-240x350-printed-tees-m-1685445850.jpg"
-                            alt="card-img-1">
-                    </div>
-                    <div class="home-card">
-                        <img src="https://images.bewakoof.com/uploads/grid/app/category-box-oversized-tees-m-1685086219.jpg"
-                            alt="card-img-2">
-                    </div>
-                    <div class="home-card">
-                        <img src="https://images.bewakoof.com/uploads/grid/app/category-box-joggers-m-1684997505.jpg"
-                            alt="card-img-3">
-                    </div>
-                    <div class="home-card">
-                        <img src="https://images.bewakoof.com/uploads/grid/app/category-box-new-240x350-men-shorts-1686063035.jpg"
-                            alt="card-img-4">
-                    </div>
-                </div>
+            <div class="carousel-item">
+              <img
+                src="https://images.bewakoof.com/uploads/grid/app/desktop-mid-size-hygiene-revamp-parachute--1--1697523796.jpg"
+                class="d-block w-100"
+                alt="slide-3"
+              />
             </div>
-            <div class="shop-for-womens">
-                <h4>Shop by category - Women</h4>
-                <div class="home-card-group">
-                    <div class="home-card">
-                        <img src="https://images.bewakoof.com/uploads/grid/app/category-box-new-D-240x350-printed-tees-w-1685445851.jpg"
-                            alt="card-img-1">
-                    </div>
-                    <div class="home-card">
-                        <img src="https://images.bewakoof.com/uploads/grid/app/category-box-Oversized-tshirts-Women-1682055634.png"
-                            alt="card-img-2">
-                    </div>
-                    <div class="home-card">
-                        <img src="https://images.bewakoof.com/uploads/grid/app/category-box-new-D-240x350-fashion-tops-1686305660.jpg"
-                            alt="card-img-3">
-                    </div>
-                    <div class="home-card">
-                        <img src="https://images.bewakoof.com/uploads/grid/app/category-box-Joggers-Women-1682055633.png"
-                            alt="card-img-4">
-                    </div>
-                </div>
+            <div class="carousel-item">
+              <img
+                src="https://images.bewakoof.com/uploads/grid/app/Trendy-Tshirt-at-flat-399-desktop-mid-size-banner--1--1696841594.jpg"
+                class="d-block w-100"
+                alt="slide-4"
+              />
             </div>
-
-            <img src="https://images.bewakoof.com/uploads/grid/app/Desktop-Strip-3-1669022420.jpg" class="home-img-last"
-                alt="image">
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleAutoplaying"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleAutoplaying"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
         </div>
+
+        <div class="weekly-design">
+          <h4>Design of the Week</h4>
+          <div class="design-image">
+            <img
+              src="https://images.bewakoof.com/uploads/grid/app/Revised-DOTW-Split-banner-Desktop-Menn--2--1697963845.jpg"
+              alt="left-image"
+            />
+            <img
+              src="https://images.bewakoof.com/uploads/grid/app/Revised-DOTW-Split-banner-Desktop-Women--1--1697963845.jpg"
+              alt="right-image"
+            />
+          </div>
+        </div>
+
+        <div class="shop-for-mens">
+          <h4>Shop by category - Men</h4>
+          <div class="home-card-group">
+            <div class="home-card">
+              <img
+                src="https://images.bewakoof.com/uploads/grid/app/category-box-new-D-240x350-printed-tees-m-1685445850.jpg"
+                alt="card-img-1"
+              />
+            </div>
+            <div class="home-card">
+              <img
+                src="https://images.bewakoof.com/uploads/grid/app/category-box-oversized-tees-m-1685086219.jpg"
+                alt="card-img-2"
+              />
+            </div>
+            <div class="home-card">
+              <img
+                src="https://images.bewakoof.com/uploads/grid/app/category-box-joggers-m-1684997505.jpg"
+                alt="card-img-3"
+              />
+            </div>
+            <div class="home-card">
+              <img
+                src="https://images.bewakoof.com/uploads/grid/app/category-box-new-240x350-men-shorts-1686063035.jpg"
+                alt="card-img-4"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="shop-for-womens">
+          <h4>Shop by category - Women</h4>
+          <div class="home-card-group">
+            <div class="home-card">
+              <img
+                src="https://images.bewakoof.com/uploads/grid/app/category-box-new-D-240x350-printed-tees-w-1685445851.jpg"
+                alt="card-img-1"
+              />
+            </div>
+            <div class="home-card">
+              <img
+                src="https://images.bewakoof.com/uploads/grid/app/category-box-Oversized-tshirts-Women-1682055634.png"
+                alt="card-img-2"
+              />
+            </div>
+            <div class="home-card">
+              <img
+                src="https://images.bewakoof.com/uploads/grid/app/category-box-new-D-240x350-fashion-tops-1686305660.jpg"
+                alt="card-img-3"
+              />
+            </div>
+            <div class="home-card">
+              <img
+                src="https://images.bewakoof.com/uploads/grid/app/category-box-Joggers-Women-1682055633.png"
+                alt="card-img-4"
+              />
+            </div>
+          </div>
+        </div>
+
+        <img
+          src="https://images.bewakoof.com/uploads/grid/app/Desktop-Strip-3-1669022420.jpg"
+          class="home-img-last"
+          alt="image"
+        />
+      </div>
     </main>
 
     <div id="site-footer"></div>
 
-    <script src="script.js" type="module"></script>
+    <script type="module" src="script.js"></script>
     <script type="module" src="./HeaderFooter/headerFooterLoader.js"></script>
-</body>
-
+  </body>
 </html>

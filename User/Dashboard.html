@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="shortcut icon"
+      href="https://i.ibb.co/PGbMMq5N/favIconn.png"
+      type="image/x-icon"
+    />
+    <title>User Dashboard</title>
+  </head>
+  <body data-gender="all">
+    <div id="loader">
+      <div class="loader-content">
+        <div class="spinner"></div>
+      </div>
+    </div>
+
+    <div id="site-header"></div>
+
+    <main id="main-content" style="display: none">
+      <div class="container">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb text-sm">
+            <li class="breadcrumb-item"><a href="/index.html">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">
+              My Account
+            </li>
+          </ol>
+        </nav>
+
+        <div class="text-left flex mt-4">
+          <aside
+            class="flex flex-col gap-[30px] sticky overflow-y-auto w-[25%] h-fit top-[7rem] p-4 border rounded-lg"
+            style="scrollbar-width: none"
+          >
+            <div class="profile-aside">
+              <div class="profile-aside-btn active" data-section="my-profile">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </div>
+            </div>
+            <div class="profile-aside">
+              <div class="profile-aside-btn" data-section="my-orders">
+                <i class="bi bi-box-seam"></i>
+                <span>My Orders</span>
+              </div>
+            </div>
+            <div class="profile-aside">
+              <div class="profile-aside-btn" data-section="my-addresses">
+                <i class="bi bi-geo-alt"></i>
+                <span>My Addresses</span>
+              </div>
+            </div>
+            <div class="profile-aside">
+              <div class="profile-aside-btn" data-section="my-wishlist">
+                <i class="bi bi-heart"></i>
+                <span>My Wishlist</span>
+              </div>
+            </div>
+            <div class="profile-aside">
+              <div id="logoutBtn" class="logout-btn text-red-600">
+                <i class="bi bi-box-arrow-left"></i>
+                <span>Logout</span>
+              </div>
+            </div>
+          </aside>
+
+          <section class="w-[80%] ml-[40px]">
+            <div class="profile-section" id="my-profile">
+              <div class="ring-1 rounded-lg px-4 py-3">
+                <div class="mb-4">
+                  <h2 class="text-lg font-semibold">Personal Information</h2>
+                  <div class="mt-2">
+                    <input
+                      type="text"
+                      id="user-name-to-show"
+                      readonly
+                      class="w-full"
+                    />
+                    <div class="mt-2">
+                      <div
+                        id="user-gender-to-show"
+                        class="bg-sky-100 w-[100px] p-2 text-center rounded font-[550]"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-5">
+                  <h2 class="text-lg font-semibold">Email Address</h2>
+                  <div class="mt-2">
+                    <input
+                      type="email"
+                      id="user-email-to-show"
+                      readonly
+                      class="w-full"
+                    />
+                  </div>
+                </div>
+
+                <button
+                  id="deleteAccountBtn"
+                  class="w-[200px] uppercase bg-red-600 text-gray-100 p-2 font-semibold rounded-md"
+                >
+                  Delete Account
+                </button>
+              </div>
+            </div>
+
+            <div class="profile-section hidden h-full" id="my-orders">
+              <h2 class="pb-3 border-bottom mb-4 font-bold text-lg">
+                My Orders <span id="order-length"></span>
+              </h2>
+
+              <div class="flex flex-col gap-3" id="ordered-products">
+                <!--  -->
+              </div>
+            </div>
+
+            <div class="profile-section hidden" id="my-addresses">
+              <div id="address-action-area">
+                <button
+                  id="add-address-btn"
+                  class="uppercase font-semibold ring-1 text-sky-400 text-lg flex items-center gap-2 bg-[#fdffff] p-2 w-full rounded-lg"
+                >
+                  <i class="bi bi-plus-lg"></i>Add New Address
+                </button>
+              </div>
+
+              <div id="saved-addresses" class="my-3 flex flex-col gap-2">
+                <!--  -->
+              </div>
+
+              <template id="address-form-template">
+                <form class="border rounded-lg p-4 bg-white address-form">
+                  <div class="mb-2">
+                    <div class="flex gap-2">
+                      <input
+                        type="text"
+                        name="name"
+                        placeholder="Name"
+                        class="input border rounded p-2 w-full mb-2"
+                        required
+                      />
+                      <input
+                        type="tel"
+                        name="mobile"
+                        placeholder="Mobile Number (10 Digit)"
+                        pattern="\d{10}"
+                        maxlength="10"
+                        class="input border rounded p-2 w-full mb-2"
+                        required
+                      />
+                    </div>
+                    <div class="flex gap-2">
+                      <input
+                        type="text"
+                        name="pincode"
+                        placeholder="PIN Code/ZIP Code"
+                        maxlength="6"
+                        class="input border rounded p-2 w-full mb-2"
+                        required
+                      />
+                      <input
+                        type="text"
+                        name="area"
+                        placeholder="Area/Locality"
+                        class="input border rounded p-2 w-full mb-2"
+                        required
+                      />
+                    </div>
+                    <div class="flex gap-2">
+                      <input
+                        type="text"
+                        name="city"
+                        placeholder="City/District"
+                        class="input border rounded p-2 w-full mb-2"
+                        required
+                      />
+                      <input
+                        type="text"
+                        name="state"
+                        placeholder="State"
+                        class="input border rounded p-2 w-full mb-2"
+                        required
+                      />
+                    </div>
+                    <input
+                      type="text"
+                      name="address"
+                      placeholder="Address (Street Name)"
+                      class="input border rounded p-2 w-full mb-2"
+                      required
+                    />
+                    <input
+                      type="text"
+                      name="landmark"
+                      placeholder="Landmark (Optional)"
+                      class="input border rounded p-2 w-full mb-2"
+                    />
+                  </div>
+
+                  <div class="flex gap-4 mt-2">
+                    <label class="type-radio">
+                      <input type="radio" name="type" value="Home" />
+                      <span class="type">Home</span>
+                    </label>
+                    <label class="type-radio">
+                      <input type="radio" name="type" value="Office" />
+                      <span class="type">Office</span>
+                    </label>
+                    <label class="type-radio">
+                      <input type="radio" name="type" value="Other" />
+                      <span class="type">Other</span>
+                    </label>
+                  </div>
+
+                  <div class="flex gap-2 mt-4">
+                    <button
+                      type="submit"
+                      class="bg-sky-400 font-[550] px-4 py-2 rounded"
+                    >
+                      Save
+                    </button>
+                    <button
+                      type="button"
+                      class="cancel-btn font-[550] text-red-500"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </template>
+            </div>
+
+            <div class="profile-section hidden h-full" id="my-wishlist">
+              <h2 class="pb-3 border-bottom mb-4 font-bold text-lg">
+                My Wishlist <span id="wishlist-length"></span>
+              </h2>
+
+              <div class="flex flex-col gap-3" id="wishlist-products">
+                <!--  -->
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script type="module" src="app.js"></script>
+    <script type="module" src="./Script/addressForm.js"></script>
+    <script type="module" src="./Script/p-order-wishlist.js"></script>
+    <script type="module" src="../HeaderFooter/headerFooterLoader.js"></script>
+  </body>
+</html>

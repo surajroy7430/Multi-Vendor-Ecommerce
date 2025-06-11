@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="../style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="shortcut icon"
+      href="https://i.ibb.co/PGbMMq5N/favIconn.png"
+      type="image/x-icon"
+    />
+    <title>User Cart</title>
+  </head>
+  <body data-gender="all">
+    <div id="loader">
+      <div class="loader-content">
+        <div class="spinner"></div>
+      </div>
+    </div>
+
+    <div id="site-header"></div>
+
+    <main id="main-content" style="display: none">
+      <div class="container">
+        <div id="cartContainer">
+          <h2 class="text-lg font-semibold text-left my-5">
+            My Cart
+            <span id="cart-length"></span>
+          </h2>
+
+          <div id="cart-summary" class="flex gap-4" style="display: none;">
+            <section class="flex flex-col gap-3 w-[80%] grow-[2] shrink-[1] basis-[0]">
+              <div
+                class="ring-1 ring-green-300 text-green-700 h-[40px] flex items-center gap rounded-md bg-lime-50 px-2.5 py-2"
+              >
+                <span>
+                  <img
+                    src="https://i.ibb.co/MyTC07ZM/icon-cart-savings.gif"
+                    alt="icon-cart-savings"
+                    class="h-full w-[40px]"
+                  />
+                </span>
+                <span>
+                  You are saving
+                  <span id="cart-save" class="font-semibold"></span>
+                  on this order
+                </span>
+              </div>
+
+              <div id="cart-products" class="flex flex-col gap-2"></div>
+            </section>
+
+            <section
+              id="cart-checkout"
+              class="flex flex-col gap-2 w-[25%] grow-[1] shrink-[1] basis-[0]"
+            >
+              <div
+                class="address-container ring-1 w-full max-w-full overflow-hidden ring-cyan-200 rounded-md bg-[#f9fcff] text-left p-2"
+              >
+                <!--  -->
+              </div>
+
+              <div class="border rounded-md text-left p-3">
+                <h3 class="font-bold uppercase">Price Summary</h3>
+                <div class="flex justify-between mt-3 mb-2 font-[550]">
+                  <p>Total Amount</p>
+                  <p id="totalAmount">₹123</p>
+                </div>
+
+                <hr />
+
+                <div
+                  class="flex flex-col gap-2 my-2 text-sm text-gray-500 font-[550]"
+                >
+                  <div class="flex justify-between">
+                    <p id="totalMRPText">Total MRP (1 item)</p>
+                    <p id="totalMRP">₹1234</p>
+                  </div>
+                  <div class="flex justify-between">
+                    <p>Discount</p>
+                    <p class="text-green-600" id="discountPrice">₹0</p>
+                  </div>
+                  <div class="flex justify-between">
+                    <p>Delivery Fee</p>
+                    <p class="text-green-600" id="delivery-fee">Free</p>
+                  </div>
+                </div>
+
+                <div class="mt-3">
+                  <button
+                    id="orderNowBtn"
+                    class="bg-amber-300 w-full uppercase font-semibold p-2 rounded-lg hover:bg-amber-400"
+                  >
+                    Place Order
+                  </button>
+                </div>
+              </div>
+
+              <div
+                class="flex gap-3 justify-between px-4 py-3 font-[550] uppercase text-[10px] text-gray-400"
+              >
+                <div class="flex flex-col gap-1 items-center">
+                  <img
+                    src="https://i.ibb.co/4Zf7n8hX/trust-cart.png"
+                    alt="secure-payment"
+                    class="w-[40px] h-[40px]"
+                  />
+                  <span>100% Secure Payment</span>
+                </div>
+                <div class="flex flex-col gap-1 items-center">
+                  <img
+                    src="https://i.ibb.co/chJNFpgX/Easy-Returns.png"
+                    alt="easy-return"
+                    class="w-[40px] h-[40px]"
+                  />
+                  <span>Easy Returns & Instant Refunds</span>
+                </div>
+                <div class="flex flex-col gap-1 items-center">
+                  <img
+                    src="https://i.ibb.co/Z6BMrJM0/quality-as.png"
+                    alt="quality-assurance"
+                    class="w-[40px] h-[40px]"
+                  />
+                  <span>Quality Assurance</span>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <div id="wishlisted-products" class="mt-5">
+          <h2 class="text-lg font-semibold text-left mb-4">My Wishlist</h2>
+        </div>
+      </div>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script type="module" src="../app.js"></script>
+    <script
+      type="module"
+      src="../../HeaderFooter/headerFooterLoader.js"
+    ></script>
+  </body>
+</html>

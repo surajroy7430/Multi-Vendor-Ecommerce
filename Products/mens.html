@@ -1,88 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/Products/style.css" />
+    <link
+      rel="shortcut icon"
+      href="https://i.ibb.co/PGbMMq5N/favIconn.png"
+      type="image/x-icon"
+    />
+    <title>Men's Clothes</title>
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
-        crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="/Products/style.css">
-    <title>Men Products</title>
-</head>
-
-<body data-gender="Men">
-    <div id="loader" class="spinner"></div>
+  <body data-gender="Men">
+    <div id="loader">
+      <div class="loader-content">
+        <div class="spinner"></div>
+      </div>
+    </div>
 
     <div id="site-header"></div>
 
-    <main id="main-content" style="display: none;">
-        <div class="container">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/index.html">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Men Clothes</li>
-                </ol>
-            </nav>
+    <main id="main-content" style="display: none">
+      <div class="container">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb text-sm">
+            <li class="breadcrumb-item"><a href="/index.html">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">
+              Men Clothing
+            </li>
+          </ol>
+        </nav>
 
-            <div class="filterAndSort">
-                <div class="filter-container">
-                    <div class="filter-group">
-                        <label for="price-range">Price Range (₹)</label>
-                        <input type="range" id="price-range" min="0" max="10000" step="100">
-                        <span id="price-value">₹0 - ₹10000</span>
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="vendor-filter">Vendor</label>
-                        <select id="vendor-filter">
-                            <option value="">All Vendors</option>
-                            <!--  -->
-                        </select>
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="rating-filter">Ratings</label>
-                        <select id="rating-filter">
-                            <option value="">All Ratings</option>
-                            <option value="4">4 stars & above</option>
-                            <option value="3">3 stars & above</option>
-                            <option value="2">2 stars & above</option>
-                            <option value="1">1 stars & above</option>
-                        </select>
-                    </div>
+        <main>
+          <div class="flex">
+            <div
+              class="flex flex-col block sticky overflow-y-auto w-[22%] h-[80vh] top-[6rem] p-1"
+              style="scrollbar-width: none"
+            >
+              <div class="filter-container flex flex-col" id="filterContainer">
+                <div class="flex justify-between items-center mb-2">
+                  <h2 class="text-lg font-semibold">FILTERS</h2>
+                  <button
+                    id="clearAllBtn"
+                    class="text-blue-500 hover:underline text-sm hidden"
+                  >
+                    Clear All
+                  </button>
                 </div>
-                <div class="sort-container">
-                    <label for="price-sort">Sort By: </label>
-                    <select id="price-sort">
-                        <option value="">All Products</option>
-                        <option value="price-asc">Price: Low to High</option>
-                        <option value="price-desc">Price: High to Low</option>
+
+                <div class="accordian" id="filterSections"></div>
+              </div>
+            </div>
+
+            <div class="w-[90%] ml-[40px]">
+              <div class="product-wrapper">
+                <div
+                  id="product-length-sort"
+                  class="flex justify-between gap-2 mb-[1rem] text-left"
+                >
+                  <div
+                    id="product-length"
+                    class="border rounded-md w-fit flex items-center px-3 py-2 flex gap-2"
+                  ></div>
+
+                  <div
+                    class="border px-3 py-2 flex items-center w-fit rounded-md"
+                  >
+                    <label for="price-sort" class="text-slate-500"
+                      >Sort By:
+                    </label>
+                    <select id="price-sort" class="outline-none font-semibold">
+                      <option value="">All Products</option>
+                      <option value="price-asc">Price: Low to High</option>
+                      <option value="price-desc">Price: High to Low</option>
                     </select>
+                  </div>
                 </div>
+
+                <div id="product-list" class=""></div>
+              </div>
+
+              <div id="productListMsg" class="mt-4"></div>
+              <button id="load-more">Load More</button>
             </div>
-
-            <div id="quick-view-modal" class="quick-view-modal">
-                <div class="modal-content">
-                    <span id="close-quick-view" class="modal-close-btn">&times;</span>
-                    <div class="modal-body"></div>
-                </div>
-            </div>
-
-            <div id="product-list"></div>
-            <div id="productListMsg"></div>
-
-            <button id="load-more">Load More</button>
-        </div>
+          </div>
+        </main>
+      </div>
     </main>
 
     <div id="site-footer"></div>
 
     <script type="module" src="products.js"></script>
+    <script type="module" src="filterOptions.js"></script>
     <script type="module" src="../HeaderFooter/headerFooterLoader.js"></script>
-</body>
-
+  </body>
 </html>
