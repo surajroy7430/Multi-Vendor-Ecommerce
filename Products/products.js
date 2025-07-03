@@ -11,7 +11,7 @@ import {
 import { generateStarIcons, setupQuantityControls } from "../script.js";
 import { currentWishlist, wishlistReady } from "../authState.js";
 import {
-  handleAddToCart,
+  handleAddToCartWithSize,
   handleAddToWishlist,
 } from "../User/Script/cartAndWishlist.js";
 
@@ -223,72 +223,71 @@ function createProductCard(product) {
             <span class="name">${s}</span>
           </label>
         </li>
-        `
+      `
     )
     .join("");
 
   div.innerHTML = `
-        <div class="image-container">
-            <img 
-                src="${product.displayImage}"
-                alt="${product.name}"
-                title="${product.name}"
-            />
+    <div class="image-container">
+        <img 
+            src="${product.displayImage}"
+            alt="${product.name}"
+            title="${product.name}"
+        />
+        <div class="product-price">₹${product.price}</div>
+    </div>
+    <label class="wishlist ${
+      currentWishlist.has(product.id) ? "wishlisted" : ""
+    }">
+      <input type="checkbox">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000">
+        <path d="M12 20a1 1 0 0 1-.437-.1C11.214 19.73 3 15.671 3 9a5 5 0 0 1 8.535-3.536l.465.465.465-.465A5 5 0 0 1 21 9c0 6.646-8.212 10.728-8.562 10.9A1 1 0 0 1 12 20z"></path>
+      </svg>
+    </label>
 
-            <div class="product-price">₹${product.price}</div>
-        </div>
-        <label class="wishlist ${
-          currentWishlist.has(product.id) ? "wishlisted" : ""
-        }">
-            <input type="checkbox">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000">
-                <path d="M12 20a1 1 0 0 1-.437-.1C11.214 19.73 3 15.671 3 9a5 5 0 0 1 8.535-3.536l.465.465.465-.465A5 5 0 0 1 21 9c0 6.646-8.212 10.728-8.562 10.9A1 1 0 0 1 12 20z"></path>
-            </svg>
-        </label>
+    <div class="card-content">
+      <div class="brand text-truncate">${product.brand}</div>
+      <div class="product-name">${product.name}</div>
 
-        <div class="card-content">
-            <div class="brand text-truncate">${product.brand}</div>
-            <div class="product-name">${product.name}</div>
+      <div class="rating card-rating" data-rating="${rating}">
+        ${generateStarIcons(rating)}
+      </div>
 
-            <div class="rating card-rating" data-rating="${rating}">
-                ${generateStarIcons(rating)}
-            </div>
-
-            <div class="size-quantity-container my-2">
-                <div class="sizes">
-                    Size
-                    <ul class="size-content">
-                        ${sizeList}
-                    </ul>
-                </div>
-
-                <div class="quantities">
-                  Quantity
-                  <div class="quantity-controls">
-                    <button class="decrease-qty" type="button">
-                      <i class="bi bi-dash-lg"></i>
-                    </button>
-                    <div class="quantity-display" data-qty="1">1</div>
-                    <button class="increase-qty" type="button">
-                      <i class="bi bi-plus-lg"></i>
-                    </button>
-                  </div>
-                </div>
-            </div>
+      <div class="size-quantity-container my-2">
+        <div class="sizes">
+          Size
+          <ul class="size-content">
+            ${sizeList}
+          </ul>
         </div>
 
-        <div class="button-container">
-            <a href="/Product-Details/p.html?ref=${ref}" class="view-button button" target="_blank">View</a>
-            <button class="cart-button button">
-                <i class="bi bi-cart-plus-fill"></i>
+        <div class="quantities">
+          Quantity
+          <div class="quantity-controls">
+            <button class="decrease-qty" type="button">
+              <i class="bi bi-dash-lg"></i>
             </button>
+            <div class="quantity-display" data-qty="1">1</div>
+            <button class="increase-qty" type="button">
+              <i class="bi bi-plus-lg"></i>
+            </button>
+          </div>
         </div>
-        `;
+      </div>
+    </div>
+
+    <div class="button-container">
+      <a href="/Product-Details/p.html?ref=${ref}" class="view-button button" target="_blank">View</a>
+        <button class="cart-button button">
+          <i class="bi bi-cart-plus-fill"></i>
+        </button>
+    </div>
+  `;
 
   // Attach event listeners
   div
     .querySelector(".cart-button")
-    .addEventListener("click", () => handleAddToCart(product));
+    .addEventListener("click", () => handleAddToCartWithSize(product));
 
   let checkbox = div.querySelector(".wishlist input[type='checkbox']");
   if (checkbox) {

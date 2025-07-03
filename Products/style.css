@@ -228,10 +228,10 @@ div#product-list {
   font-size: 18px;
   color: #fff;
 }
-
+/* 
 .product-card:hover {
   transform: scale(1.02);
-}
+} */
 
 #load-more {
   padding: 10px 30px;

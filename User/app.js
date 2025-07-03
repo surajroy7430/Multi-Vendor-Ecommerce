@@ -8,9 +8,9 @@ import {
   getDoc,
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 import { setupDeleteAccount } from "../script.js";
-import { loadUserCartItems } from "./Cart/carts.js";
-import { loadUserOrderItems } from "./Orders/orders.js";
+import { loadUserCartItems, loadWishlistItems } from "./Cart/carts.js";
 import { loadUserWishlistItems } from "./Wishlist/wishlists.js";
+import { loadUserOrderItems } from "./Orders/script/orders.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   let userName = document.getElementById("user-name-to-show");
@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     loadUserWishlistItems();
+    loadWishlistItems()
     loadUserCartItems();
     loadUserOrderItems();
 

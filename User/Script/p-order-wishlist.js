@@ -153,9 +153,9 @@ async function loadUserWishlist() {
       <div class="flex gap-2 justify-between w-full">
         <div class="flex flex-col gap-1 justify-between">
           <h3 class="truncate font-[550] cursor-pointer hover:text-sky-500">
-            <a href="/Product-Details/p.html?ref=${ref}" target="_blank">${
-      data.name
-    }</a>
+            <a href="/Product-Details/p.html?ref=${ref}" target="_blank">
+              ${data.name}
+            </a>
           </h3>
           <p class="text-gray-400 font-[550] text-xs">Color: ${data.color}</p>
           <div class="font-[550] flex gap-1 items-baseline">
@@ -166,7 +166,6 @@ async function loadUserWishlist() {
             )}% Off</span>
           </div>
           <div class="flex gap-2">
-            <!-- if added to cart also remove from wishlist -->
             <button
               data-id="${data.id}"
               class="add-to-cart w-[30px] h-[30px] border rounded-sm text-gray-500 p-2 flex items-center justify-center text-xl hover:bg-gray-100"
@@ -177,7 +176,7 @@ async function loadUserWishlist() {
               data-id="${data.id}"
               class="remove-from-wishlist w-[30px] h-[30px] border rounded-sm text-gray-500 p-2 flex items-center justify-center text-xl hover:bg-gray-100"
             >
-              <i class="bi bi-trash-fill"></i>
+              <i class="bi bi-trash3-fill"></i>
             </button>
           </div>
         </div>

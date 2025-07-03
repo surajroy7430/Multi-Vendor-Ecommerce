@@ -7,9 +7,47 @@ import {
   deleteDoc,
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 import { currentUser, currentWishlist } from "../../authState.js";
-import { getSelectedQuantity, isLoggedIn, isUserAllowed, showToast } from "../../script.js";
+import {
+  getSelectedQuantity,
+  isLoggedIn,
+  isUserAllowed,
+  showToast,
+} from "../../script.js";
 
 export async function handleAddToCart(product) {
+  if (!isLoggedIn(currentUser)) return;
+
+  if (!(await isUserAllowed("add items to cart", currentUser))) return;
+
+  let availableSize = Array.isArray(product.size)
+    ? product.size[0]
+    : product.size || "Free Size";
+
+  let cartRef = doc(
+    db,
+    "users",
+    currentUser.uid,
+    "cart",
+    `${product.id}_${availableSize}`
+  );
+
+  try {
+    let docSnap = await getDoc(cartRef);
+
+    if (docSnap.exists()) {
+      let existingQty = docSnap.data().quantity || 1;
+      await updateDoc(cartRef, { quantity: existingQty + 1 });
+    } else {
+      await setDoc(cartRef, { ...product, size: availableSize, quantity: 1 });
+    }
+
+    showToast("Product added to cart.");
+  } catch (error) {
+    showToast("Add cart error: " + error.message, true);
+  }
+}
+
+export async function handleAddToCartWithSize(product) {
   if (!isLoggedIn(currentUser)) return;
 
   if (!(await isUserAllowed("add items to cart", currentUser))) return;

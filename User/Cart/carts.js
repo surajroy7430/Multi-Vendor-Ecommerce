@@ -1,40 +1,42 @@
-import { auth, db } from "../../firebase-config.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+import { db } from "../../firebase-config.js";
 import {
   doc,
   deleteDoc,
   collection,
+  getDoc,
   getDocs,
   onSnapshot,
+  setDoc,
   writeBatch,
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 import { showToast } from "../../script.js";
+import { currentUser } from "../../authState.js";
+import { productCard } from "../Wishlist/wishlists.js";
 
 let cartProducts = [];
 let deliveryFee = 0;
 let timestamp = Date.now();
 
-export function loadUserCartItems() {
-  onAuthStateChanged(auth, async (user) => {
-    if (!user) return;
+export async function loadUserCartItems() {
+  if (!currentUser) return;
 
-    let cartItems = document.getElementById("cart-products");
-    let cartLength = document.getElementById("cart-length");
-    let cartContainer = document.getElementById("cart-summary");
+  let cartItems = document.getElementById("cart-products");
+  let cartLength = document.getElementById("cart-length");
+  let cartContainer = document.getElementById("cart-summary");
 
-    let orderNowBtn = document.getElementById("orderNowBtn");
+  let orderNowBtn = document.getElementById("orderNowBtn");
 
-    try {
-      let cartSnapshot = await getDocs(
-        collection(db, "users", user.uid, "cart")
-      );
+  try {
+    let cartSnapshot = await getDocs(
+      collection(db, "users", currentUser.uid, "cart")
+    );
 
-      let cartSize = cartSnapshot.size;
-      cartLength.innerHTML = `(${cartSize} item${cartSize === 1 ? "" : "s"})`;
+    let cartSize = cartSnapshot.size;
+    cartLength.innerHTML = `(${cartSize} item${cartSize === 1 ? "" : "s"})`;
 
-      // Empty Cart
-      if (cartSnapshot.empty) {
-        cartContainer.innerHTML = `
+    // Empty Cart
+    if (cartSnapshot.empty) {
+      cartContainer.innerHTML = `
           <div class="mx-auto my-10">
             <img 
               src="https://i.ibb.co/XrPgD1Xk/empty-cart.png" 
@@ -45,40 +47,40 @@ export function loadUserCartItems() {
             <a href="/Products/mens.html" class="text-sky-500">Continue Shopping</a>
           </div>
         `;
-        cartContainer.style.display = "flex";
-        return;
-      }
+      cartContainer.style.display = "flex";
+      return;
+    }
 
-      let totalMRP = 0;
-      let subTotal = 0;
-      let productsHTML = "";
+    let totalMRP = 0;
+    let subTotal = 0;
+    let productsHTML = "";
 
-      cartSnapshot.forEach((doc) => {
-        let product = doc.data();
-        let productId = doc.id;
-        cartProducts.push(product);
+    cartSnapshot.forEach((doc) => {
+      let product = doc.data();
+      let productId = doc.id;
+      cartProducts.push(product);
 
-        let ref = btoa(product.id);
+      let ref = btoa(product.id);
 
-        const itemSubTotal = product.price * product.quantity;
-        const itemTotalMRP = product.totalPrice * product.quantity;
-        const discount = Math.round(
-          ((itemTotalMRP - itemSubTotal) / itemTotalMRP) * 100
-        );
+      const itemSubTotal = product.price * product.quantity;
+      const itemTotalMRP = product.totalPrice * product.quantity;
+      const discount = Math.round(
+        ((itemTotalMRP - itemSubTotal) / itemTotalMRP) * 100
+      );
 
-        subTotal += itemSubTotal;
-        totalMRP += itemTotalMRP;
+      subTotal += itemSubTotal;
+      totalMRP += itemTotalMRP;
 
-        let today = new Date();
-        today.setDate(today.getDate() + 5);
+      let today = new Date();
+      today.setDate(today.getDate() + 5);
 
-        let deliveryStr = today.toLocaleDateString("en-IN", {
-          day: "numeric",
-          month: "long",
-          year: "numeric",
-        });
+      let deliveryStr = today.toLocaleDateString("en-IN", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
 
-        productsHTML += `
+      productsHTML += `
         <div class="cart-items h-[200px] flex gap-2 p-3 border rounded-md">
           <div class="w-[20%]">
             <a href="/Product-Details/p.html?ref=${ref}">
@@ -130,55 +132,53 @@ export function loadUserCartItems() {
           </div>
         </div>
       `;
-      });
+    });
 
-      if (subTotal < 500) {
-        deliveryFee = 40;
-        subTotal += deliveryFee;
-      }
-
-      const savings = totalMRP - subTotal;
-
-      cartItems.innerHTML = productsHTML;
-      cartContainer.style.display = "flex";
-
-      document.getElementById("cart-save").innerText = `₹${savings}`;
-      document.getElementById("totalAmount").innerText = `₹${subTotal}`;
-      document.getElementById(
-        "totalMRPText"
-      ).innerText = `Total MRP (${cartSize} item${cartSize > 1 ? "s" : ""})`;
-      document.getElementById("totalMRP").innerText = `₹${totalMRP}`;
-      document.getElementById(
-        "discountPrice"
-      ).innerHTML = `<i class="bi bi-dash-lg"></i>₹${savings}`;
-      document.getElementById("delivery-fee").innerText =
-        deliveryFee > 0 ? `₹${deliveryFee}` : "Free";
-
-      await loadAddress(user);
-
-      if (orderNowBtn) {
-        orderNowBtn.onclick = () => orderAllProducts(cartProducts, user.uid);
-      }
-    } catch (error) {
-      return;
+    if (subTotal < 500) {
+      deliveryFee = 40;
+      subTotal += deliveryFee;
     }
-  });
+
+    const savings = totalMRP - subTotal;
+
+    cartItems.innerHTML = productsHTML;
+    cartContainer.style.display = "flex";
+
+    document.getElementById("cart-save").innerText = `₹${savings}`;
+    document.getElementById("totalAmount").innerText = `₹${subTotal}`;
+    document.getElementById(
+      "totalMRPText"
+    ).innerText = `Total MRP (${cartSize} item${cartSize > 1 ? "s" : ""})`;
+    document.getElementById("totalMRP").innerText = `₹${totalMRP}`;
+    document.getElementById(
+      "discountPrice"
+    ).innerHTML = `<i class="bi bi-dash-lg"></i>₹${savings}`;
+    document.getElementById("delivery-fee").innerText =
+      deliveryFee > 0 ? `₹${deliveryFee}` : "Free";
+
+    await loadAddress(currentUser);
+
+    if (orderNowBtn) {
+      orderNowBtn.onclick = () =>
+        orderAllProducts(cartProducts, currentUser.uid);
+    }
+  } catch (error) {
+    return;
+  }
 }
 
 window.removeFromCart = async function (productId) {
-  onAuthStateChanged(auth, async (user) => {
-    if (!user) return;
+  if (!currentUser) return;
 
-    try {
-      await deleteDoc(doc(db, "users", user.uid, "cart", productId));
+  try {
+    await deleteDoc(doc(db, "users", currentUser.uid, "cart", productId));
 
-      cartProducts = cartProducts.filter((p) => p.id === productId);
+    cartProducts = cartProducts.filter((p) => p.id === productId);
 
-      loadUserCartItems();
-    } catch (error) {
-      showToast("Error removing item. Please try again.", true);
-    }
-  });
+    loadUserCartItems();
+  } catch (error) {
+    showToast("Error removing item. Please try again.", true);
+  }
 };
 
 export function watchCartBadge(uid) {
@@ -216,9 +216,12 @@ window.orderAllProducts = async function (products, uid) {
     let cartRef = collection(db, "users", uid, "cart");
 
     for (let product of products) {
-      let orderRef = doc(ordersRef);
+      const orderRef = doc(ordersRef);
+      const randomNumber = Math.floor(10000000 + Math.random() * 90000000);
+
       batch.set(orderRef, {
         ...product,
+        orderId: `ORDER${randomNumber}`,
         timestamp,
         deliveryFee: deliveryFee === 0 ? "Free" : deliveryFee,
         orderStatus: "pending",
@@ -284,5 +287,74 @@ async function loadAddress(currentUser) {
       </div>
       <button class="text-xs text-sky-500 font-[550]">Change</button>
     `;
+  }
+}
+
+let wishlishtedProducts = [];
+
+export async function loadWishlistItems() {
+  if (!currentUser) return;
+
+  const wishlistContainer = document.getElementById("wishlisted-products");
+
+  try {
+    let wishSnapshot = await getDocs(
+      collection(db, "users", currentUser.uid, "wishlist")
+    );
+
+    wishlistContainer.innerHTML = `<h2 class="text-lg font-semibold text-left mb-4">My Wishlist</h2>`;
+
+    if (wishSnapshot.empty) {
+      wishlistContainer.innerHTML = "";
+      return;
+    }
+    const parentDiv = document.createElement("div");
+    parentDiv.className =
+      "grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4";
+
+    wishSnapshot.forEach((pDoc) => {
+      let product = pDoc.data();
+      let productId = pDoc.id;
+      wishlishtedProducts.push(product);
+
+      const card = productCard(product, productId, {
+        removeHandler: async (id) => {
+          await deleteDoc(doc(db, "users", currentUser.uid, "wishlist", id));
+          loadWishlistItems();
+          loadUserCartItems();
+        },
+        addToCartHandler: async (id) => {
+          const itemRef = doc(db, "users", currentUser.uid, "wishlist", id);
+          const itemSnap = await getDoc(itemRef);
+
+          if (itemSnap.exists()) {
+            const itemData = itemSnap.data();
+
+            const cartItem = {
+              ...itemData,
+              quantity: 1,
+              size: Array.isArray(itemData.size)
+                ? itemData.size[0]
+                : itemData.size || "Free Size",
+            };
+
+            await setDoc(
+              doc(db, "users", currentUser.uid, "cart", id),
+              cartItem
+            );
+            await deleteDoc(itemRef);
+
+            showToast("Product Added to Cart");
+            loadWishlistItems();
+            loadUserCartItems();
+          }
+        },
+      });
+
+      parentDiv.appendChild(card);
+      wishlistContainer.appendChild(parentDiv);
+    });
+  } catch (error) {
+    console.log(error);
   }
 }

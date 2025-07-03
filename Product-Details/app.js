@@ -14,7 +14,7 @@ import {
 } from "../script.js";
 import { currentUser, currentWishlist, wishlistReady } from "../authState.js";
 import {
-  handleAddToCart,
+  handleAddToCartWithSize,
   handleAddToWishlist,
 } from "../User/Script/cartAndWishlist.js";
 
@@ -460,7 +460,7 @@ function setupCartAndWishlist(product, productId) {
   let wishlistBtn = document.querySelector(".wishlistBtn");
 
   cartBtn?.addEventListener("click", () => {
-    handleAddToCart({ ...product, id: productId });
+    handleAddToCartWithSize({ ...product, id: productId });
   });
 
   wishlistBtn?.addEventListener("click", () => {
