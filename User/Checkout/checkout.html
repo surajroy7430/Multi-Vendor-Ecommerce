@@ -1,11 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
+      crossorigin="anonymous"
+    />
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="shortcut icon"
+      href="https://i.ibb.co/PGbMMq5N/favIconn.png"
+      type="image/x-icon"
+    />
     <title>Checkout</title>
-</head>
-<body>
-    <h1>checkout page</h1>
-</body>
+  </head>
+  <body>
+    <div id="loader">
+      <div class="loader-content">
+        <div class="spinner"></div>
+      </div>
+    </div>
+
+    <main id="main-content" style="display: none">
+      <div class="container">
+        <h1 class="text-2xl font-semibold text-left mb-3">
+          Choose Your Payment Method
+        </h1>
+
+        <div class="flex gap-4">
+          <section class="border rounded-lg w-[60%]">
+            <div class="grid grid-cols-8">
+              <div class="col-span-3">
+                <div class="payment-aside border-b">
+                  <div
+                    class="payment-aside-btn active p-4 flex items-center gap-3 border-l-[3px] rounded-t-lg border-l-sky-600 cursor-pointer"
+                    data-section="type-debit-card"
+                  >
+                    <i class="bi bi-credit-card-fill text-3xl"></i>
+                    <span class="font-semibold">Debit & Credit Card</span>
+                  </div>
+                </div>
+
+                <div class="payment-aside border-b">
+                  <div
+                    class="payment-aside-btn p-4 flex items-center gap-3 border-l-[3px] border-l-sky-600 cursor-pointer"
+                    data-section="type-cod"
+                  >
+                    <i class="bi bi-cash text-3xl"></i>
+                    <span class="font-semibold">Cash On Delivery</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-span-5 p-4">
+                <div id="type-debit-card">
+                  <div class="card-options"></div>
+
+                  <div class="text-left">
+                    <div class="form-group mb-3 relative">
+                      <label for="cardNumber" class="block">Card Number</label>
+                      <input
+                        type="text"
+                        id="cardNumber"
+                        maxlength="19"
+                        placeholder="1234 1234 1234 1234"
+                        class="rounded p-2 w-full"
+                      />
+                      <div
+                        class="card-type absolute right-2 top-[33px] bg-gray-300 font-bold rounded-sm px-2"
+                        id="cardType"
+                      ></div>
+                      <div
+                        class="helper-text text-red-500 text-sm"
+                        id="cardNumberHelp"
+                      ></div>
+                    </div>
+
+                    <div class="flex gap-2 mb-3">
+                      <div class="form-group w-[70%]">
+                        <label for="expDate" class="block"
+                          >Valid Through (MM/YY)</label
+                        >
+                        <input
+                          type="text"
+                          id="expDate"
+                          maxlength="5"
+                          placeholder="MM/YY"
+                          class="rounded p-2 w-full"
+                        />
+                        <div
+                          class="helper-text text-red-500 text-sm"
+                          id="expDateHelp"
+                        ></div>
+                      </div>
+
+                      <div class="form-group flex flex-col relative w-[30%]">
+                        <label for="cvv" class="block">CVV</label>
+                        <input
+                          type="password"
+                          id="cvv"
+                          maxlength="3"
+                          placeholder="123"
+                          class="rounded p-2 w-full"
+                        />
+                        <div
+                          class="tooptip absolute top-[33px] left-[80%] cursor-pointer font-medium"
+                        >
+                          <i
+                            class="bi bi-info-circle text-sm text-gray-600"
+                          ></i>
+                          <div
+                            class="tooltip-text sm p-2 text-center w-[150px] text-gray-400 bg-gray-50 rounded p-2 text-xs"
+                          >
+                            CVV is the 3-digit number on the back of your card
+                          </div>
+                        </div>
+                        <div
+                          class="helper-text text-red-500 text-sm"
+                          id="cvvHelp"
+                        ></div>
+                      </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                      <label for="cardName" class="block"
+                        >Name on the Card</label
+                      >
+                      <input
+                        type="text"
+                        id="cardName"
+                        placeholder="Name"
+                        autocomplete="off"
+                        class="rounded p-2 w-full"
+                      />
+                      <div class="card-type" id="cardType"></div>
+                      <div
+                        class="helper-text text-red-500 text-sm"
+                        id="cardNameHelp"
+                      ></div>
+                    </div>
+
+                    <button
+                      id="placeOrderBtn"
+                      class="w-full bg-amber-400 p-2 rounded mt-2 font-medium text-white hover:bg-amber-500"
+                    >
+                      Place Order
+                    </button>
+                  </div>
+                </div>
+
+                <div id="type-cod">
+                  <!-- gggggggggggggggggggggggggggggggggg -->
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="border rounded-lg p-2 w-[40%]">k</section>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="./checkout.js"></script>
+    <script
+      type="module"
+      src="../../HeaderFooter/headerFooterLoader.js"
+    ></script>
+
+    <script>
+      let btn = document.querySelector(".bi-info-circle");
+      let text = document.querySelector(".tooltip-text");
+
+      // Initialize Popper
+      const popperInstance = Popper.createPopper(btn, text, {
+        placement: "bottom",
+      });
+
+      // Show/hide functions
+      function showTooltip() {
+        text.setAttribute("data-show", "");
+        popperInstance.update(); // ensure position is updated
+      }
+
+      function hideTooltip() {
+        text.removeAttribute("data-show");
+      }
+
+      // Attach hover listeners
+      btn.addEventListener("mouseenter", showTooltip);
+      btn.addEventListener("mouseleave", hideTooltip);
+      text.addEventListener("mouseenter", showTooltip);
+      text.addEventListener("mouseleave", hideTooltip);
+    </script>
+  </body>
 </html>

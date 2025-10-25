@@ -1,0 +1,17 @@
+input.error {
+  border-color: red;
+}
+input {
+  border: 1px solid;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.tooltip-text[data-show] {
+  visibility: visible;
+  opacity: 1;
+}
